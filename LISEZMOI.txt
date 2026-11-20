@@ -1,0 +1,44 @@
+MA PORCHERIE — VERSION IPHONE / PC SYNCHRONISÉE
+================================================
+
+Étape 1 — Créer la base de données Firebase (gratuit)
+1. Sur le PC, allez sur https://console.firebase.google.com et connectez-vous avec un compte Google.
+2. « Créer un projet » > nom : ma-porcherie > désactivez Google Analytics > Créer.
+3. Menu de gauche « Créer » > Authentication > Commencer > « Adresse e-mail/Mot de passe » > Activer > Enregistrer.
+4. Onglet « Utilisateurs » > « Ajouter un utilisateur » : votre e-mail + un mot de passe.
+   (Faites de même pour votre porcher s'il doit utiliser l'application.)
+5. Menu « Créer » > Firestore Database > Créer une base de données > emplacement « eur3 (Europe) »
+   > « Démarrer en mode production » > Créer.
+6. Onglet « Règles » : effacez tout, collez le contenu du fichier regles-firestore.txt,
+   remplacez les deux adresses e-mail par les vôtres (en minuscules) > Publier.
+7. Roue dentée (en haut à gauche) > Paramètres du projet > « Vos applications » > icône </> (Web)
+   > surnom : porcherie > Enregistrer l'application.
+   Firebase affiche un bloc « const firebaseConfig = { apiKey: ..., ... } » : gardez cette page ouverte.
+
+Étape 2 — Remplir config.js
+8. Ouvrez config.js avec le Bloc-notes. Remplacez les valeurs entre guillemets par celles de Firebase
+   (apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId). Enregistrez.
+
+Étape 3 — Mettre l'application en ligne (GitHub Pages, gratuit)
+9. Créez un compte sur https://github.com (bouton « Sign up »).
+10. Bouton « + » en haut à droite > « New repository » > nom : porcherie > « Public » > Create repository.
+11. Cliquez « uploading an existing file », glissez TOUS les fichiers de ce dossier
+    (sauf LISEZMOI.txt et regles-firestore.txt, inutiles en ligne) > « Commit changes ».
+12. Onglet « Settings » > « Pages » (à gauche) > Branch : main, dossier / (root) > Save.
+    Après 1 à 2 minutes, l'adresse s'affiche : https://VOTRE-NOM.github.io/porcherie/
+13. Dans Firebase > Authentication > Paramètres > « Domaines autorisés » > Ajouter : VOTRE-NOM.github.io
+
+Étape 4 — Installer
+- iPhone : ouvrez l'adresse dans Safari > connectez-vous > Partager > « Sur l'écran d'accueil » > Ajouter.
+- PC : ouvrez l'adresse dans Chrome ou Edge > connectez-vous > icône d'installation dans la barre d'adresse
+  (ou menu > « Installer Ma porcherie »).
+- Android : Chrome > menu ⋮ > « Installer l'application » / « Ajouter à l'écran d'accueil ».
+
+Utilisation
+- La première connexion demande internet. Ensuite l'application s'ouvre et fonctionne sans réseau ;
+  les saisies faites hors ligne sont envoyées automatiquement au retour du réseau.
+- La ligne sous le titre indique l'état : « Synchronisé », « Hors ligne », ou « Modifications en attente d'envoi ».
+- Pour reprendre les données de l'application Android : sur l'Android, Sauvegarde > Envoyer ;
+  ici, Sauvegarde > Restaurer > collez le texte.
+- Ajouter un utilisateur plus tard : créez-le dans Authentication, puis ajoutez son e-mail dans les Règles Firestore.
+- Mettre à jour config.js plus tard : sur GitHub, ouvrez le fichier > icône crayon > modifiez > Commit changes.
