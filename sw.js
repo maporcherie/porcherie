@@ -1,5 +1,5 @@
 // Garde l'application disponible sans internet.
-const CACHE = 'porcherie-v1';
+const CACHE = 'porcherie-v2';
 const FILES = ['./', 'index.html', 'fb.js', 'config.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png',
   'outfit-latin-400-normal.woff2', 'outfit-latin-500-normal.woff2', 'outfit-latin-700-normal.woff2', 'outfit-latin-800-normal.woff2'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES))); self.skipWaiting(); });

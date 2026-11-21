@@ -30,7 +30,7 @@ LAYOUT: bandeau + onglets, cartes de chiffres, listes ; nav en bas sur mobile */
 --pink:light-dark(#ffc9d4,#4a2430);--soft:light-dark(#fff3f6,#21171a);--line:light-dark(#efdde2,#3a2a30);
 --acc:#ff5a1f;--accInk:#fff;--ok:light-dark(#0b7a4b,#5fd39b);--bad:light-dark(#c4251b,#ff7a6e);--warn:light-dark(#9a5a00,#ffc46b)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
-*{box-sizing:border-box;min-width:0}
+*{box-sizing:border-box;min-width:0}[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Outfit,system-ui,sans-serif;overflow-x:clip;padding-bottom:84px}
 h1,h2,h3{font-weight:800;line-height:1.1;margin:0;text-wrap:balance}
 h2{font-size:20px;margin-bottom:12px}
@@ -110,11 +110,19 @@ dl.info{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0 0 16px
 dl.info dt{color:var(--mut);font-size:14px}dl.info dd{margin:0}
 .sub{font-size:16px;margin:18px 0 8px}
 .login{position:fixed;inset:0;background:var(--pink);display:flex;align-items:center;justify-content:center;padding:16px;z-index:40;overflow-y:auto}.login[hidden]{display:none}.login .sheet{text-align:left}.login svg{width:64px;height:64px;display:block;margin-bottom:10px}
+.report h2{font-size:22px;margin:0 0 2px}.report .rsub{color:var(--mut);margin:0 0 16px;font-size:14px}
+.report h3{font-size:16px;margin:18px 0 6px}
+.report table{margin-bottom:6px}.report tfoot td{font-weight:700;border-top:2px solid var(--ink);border-bottom:0}
+.report tr.sub td{font-weight:700;background:var(--soft)}
+.report .res{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--ink);color:var(--bg);border-radius:12px;padding:14px 18px;margin:14px 0;font-weight:800;font-size:18px}
+.report .rnote{font-size:13px;color:var(--mut);margin:10px 0 0}
+.plan-row{display:grid;grid-template-columns:minmax(0,1fr) 110px;gap:10px;align-items:center;margin-bottom:8px}
+@media print{.top,.tabs,.noprint,#toast,.modal,.login{display:none!important}.view{display:none!important}#v-rapports{display:block!important}body{padding:0;background:#fff;color:#000}main{padding:0;max-width:none}.report table{font-size:10pt}.report .res{background:#eee;color:#000}.stack thead{display:table-header-group!important}.stack tr{display:table-row!important}.stack td{display:table-cell!important;padding:4px 6px!important}.stack td::before{content:none!important}}
 #toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:12px;font-size:15px;display:none;z-index:30;max-width:90vw}
 .note{font-size:13px;color:var(--mut);margin:10px 0 0}
 @media(max-width:700px){
  .tabs{position:fixed;bottom:0;left:0;right:0;z-index:10;padding:6px 6px calc(6px + env(safe-area-inset-bottom));justify-content:space-between;border-top:1px solid var(--line);background:var(--bg)}
- .tabs button{flex:1;border-radius:10px;padding:6px 4px;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:2px}
+ .tabs button{flex:1;border-radius:10px;padding:6px 2px;font-size:11.5px;display:flex;flex-direction:column;align-items:center;gap:2px}
  .tabs button[aria-current=true]{background:var(--pink)}
  .tabs svg{width:22px;height:22px}
  .top{padding-bottom:16px}
@@ -137,10 +145,11 @@ dl.info dt{color:var(--mut);font-size:14px}dl.info dd{margin:0}
 <nav class="tabs" id="tabs">
  <button data-t="tableau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12 12 4l9 8v8h-6v-5H9v5H3z"/></svg><span class="lg">Tableau de bord</span><span class="sh">Accueil</span></button>
  <button data-t="cheptel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="7"/><path d="M9 13h.01M15 13h.01M6 7 4 3l5 2M18 7l2-4-5 2"/></svg>Cheptel</button>
- <button data-t="repro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg>Reproduction</button>
+ <button data-t="repro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg><span class="lg">Reproduction</span><span class="sh">Repro</span></button>
  <button data-t="sante"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/><rect x="3" y="3" width="18" height="18" rx="4"/></svg>Santé</button>
  <button data-t="pesees"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16l-2-12H6z"/><circle cx="12" cy="5" r="2"/></svg>Pesées</button>
  <button data-t="finances"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg>Finances</button>
+ <button data-t="rapports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7M9 8h3"/></svg>Rapports</button>
 </nav>
 <main>
  <section class="view" id="v-tableau">
@@ -189,6 +198,15 @@ dl.info dt{color:var(--mut);font-size:14px}dl.info dd{margin:0}
   </div>
   <div id="tFin"></div>
  </section>
+<section class="view" id="v-rapports">
+  <div class="bar noprint">
+   <select id="rType" style="flex:1 1 220px"><option value="cr">Compte de résultat</option><option value="journal">Journal comptable</option><option value="balance">Balance des comptes</option><option value="treso">Trésorerie</option><option value="ind">Indicateurs d'élevage</option></select>
+   <select id="rPer" style="flex:1 1 180px"><option value="m0">Ce mois</option><option value="m1">Mois précédent</option><option value="q0">Ce trimestre</option><option value="y0" selected>Cette année</option><option value="y1">Année précédente</option><option value="c">Période personnalisée</option></select>
+  </div>
+  <div class="bar noprint" id="rCustom" hidden><label class="fld" style="flex:1;margin:0"><span>Du</span><input type="date" id="rFrom"></label><label class="fld" style="flex:1;margin:0"><span>Au</span><input type="date" id="rTo"></label></div>
+  <div class="bar noprint"><button class="pri" id="rCsv">Exporter pour Excel</button><button id="rPrint">Imprimer / PDF</button><span style="flex:1"></span><button class="ghost" id="rPlan">Plan comptable</button></div>
+  <div id="rOut" class="report"></div>
+ </section>
 </main>
 <div class="modal" id="modal"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mTitle">
  <button class="ic x" id="mClose" aria-label="Fermer">✕</button>
@@ -210,6 +228,7 @@ const $=s=>document.querySelector(s);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const CATS={truie:'Truie',cochette:'Cochette',verrat:'Verrat',porcelet:'Porcelet',engrais:"Porc à l'engrais"};
 const CATF={aliment:'Aliment',veto:'Vétérinaire / médicaments',main:"Main-d'œuvre",achat:"Achat d'animaux",equip:'Équipement / bâtiment',eau:'Eau / électricité',transport:'Transport',vente_porc:'Vente de porcs',vente_porcelet:'Vente de porcelets',autre:'Autre'};
+const MODES={especes:'Espèces',mm:'Mobile Money',banque:'Banque'};
 const TYPES={vaccin:'Vaccin',deparasitage:'Déparasitage',traitement:'Traitement',autre:'Autre'};
 const STAT={actif:'Présent',vendu:'Vendu',mort:'Mort'};
 const MOIS=['Janv.','Févr.','Mars','Avr.','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.'];
@@ -219,7 +238,7 @@ const F={
  saillie:{t:'une saillie / portée',f:[['truie','Truie','porc',1,'F'],['verrat','Verrat','porc',0,'M'],['date','Date de saillie','date',1],['dateMB','Date de mise bas réelle','date'],['vivants','Nés vivants','num'],['mortsnes','Mort-nés','num'],['sevres','Porcelets sevrés','num'],['dateSev','Date de sevrage','date'],['notes','Notes','area']]},
  sante:{t:'un soin',f:[['type','Type','sel',1,TYPES],['produit','Produit / vaccin','text',1],['porc','Animal','porc',0,''],['lot','Ou lot / groupe','text'],['date','Date','date',1],['rappel','Prochain rappel','date'],['cout','Coût (FCFA)','num'],['notes','Notes','area']],hint:'Le coût saisi ici est compté automatiquement dans les dépenses (poste Vétérinaire).'},
  pesee:{t:'une pesée',f:[['porc','Animal','porc',1,''],['date','Date','date',1],['poids','Poids (kg)','num',1]]},
- finance:{t:'une opération',f:[['sens','Type','sel',1,{depense:'Dépense',vente:'Recette / vente'}],['categorie','Poste','sel',1,CATF],['date','Date','date',1],['libelle','Libellé','text',1],['qte','Quantité (têtes, sacs, kg…)','num'],['montant','Montant total (FCFA)','num',1],['porc','Porc vendu (passe en « Vendu »)','porc',0,'']]}
+ finance:{t:'une opération',f:[['sens','Type','sel',1,{depense:'Dépense',vente:'Recette / vente'}],['categorie','Poste','sel',1,CATF],['date','Date','date',1],['libelle','Libellé','text',1],['qte','Quantité (têtes, sacs, kg…)','num'],['montant','Montant total (FCFA)','num',1],['mode','Règlement','sel',1,MODES],['porc','Porc vendu (passe en « Vendu »)','porc',0,'']]}
 };
 let S=[],col=null,tab='tableau',live=true,migr=false,fbReady=false,who='';
 
@@ -295,7 +314,7 @@ function openForm(kind,rec,preset){
   else toast('Enregistré.');
  };
 }
-function defaults(k){const t=today();return {porc:{statut:'actif'},saillie:{date:t},sante:{date:t,type:'vaccin'},pesee:{date:t},finance:{date:t,sens:'depense',categorie:'aliment'}}[k]}
+function defaults(k){const t=today();return {porc:{statut:'actif'},saillie:{date:t},sante:{date:t,type:'vaccin'},pesee:{date:t},finance:{date:t,sens:'depense',categorie:'aliment',mode:'especes'}}[k]}
 function askDel(id){const r=byId(id);if(!r)return;
  openM('Supprimer ?',`<p>Cet enregistrement sera supprimé définitivement.</p><div class="foot"><button class="ghost" id="dNo">Annuler</button><button class="pri" id="dYes">Supprimer</button></div>`);
  $('#dNo').onclick=closeM;$('#dYes').onclick=()=>{closeM();del(id);toast('Supprimé.')};
@@ -342,7 +361,7 @@ function alerts(){
 }
 function finOps(){
  const ops=of('finance').map(f=>({...f}));
- for(const c of of('sante'))if(c.cout>0)ops.push({id:c.id,auto:true,sens:'depense',categorie:'veto',date:c.date,libelle:'Soin : '+c.produit+' ('+cible(c)+')',montant:c.cout});
+ for(const c of of('sante'))if(c.cout>0)ops.push({id:c.id,auto:true,sens:'depense',categorie:'veto',mode:'especes',date:c.date,libelle:'Soin : '+c.produit+' ('+cible(c)+')',montant:c.cout});
  return ops;
 }
 function yearSum(y){const ops=finOps().filter(o=>(o.date||'').startsWith(y));const m=MOIS.map(()=>({r:0,d:0}));let r=0,d=0;
@@ -352,6 +371,7 @@ function monthRows(m){const mx=Math.max(1,...m.map(x=>Math.abs(x.r-x.d)));
  return `<div class="rows">${m.map((x,i)=>{const v=x.r-x.d,w=Math.abs(v)/mx*50;return `<div class="rw"><span>${MOIS[i]}</span><div class="track"><i class="${v>=0?'p':'m'}" style="${v>=0?'left:50%':'right:50%'};width:${w}%"></i></div><span class="n ${v>0?'pos':v<0?'neg':''}">${x.r||x.d?(v>0?'+':'')+nf(v):'—'}</span></div>`}).join('')}</div>`;}
 
 function render(){
+ try{renderReport()}catch(e){}
  const pr=of('porc').filter(p=>p.statut==='actif'),cnt=c=>pr.filter(p=>p.cat===c).length;
  /* tableau */
  $('#kpis').innerHTML=`<div class="kpi main"><b>${pr.length}</b><span>porcs présents</span></div>`+[['truie','Truies'],['cochette','Cochettes'],['verrat','Verrats'],['porcelet','Porcelets'],['engrais',"À l'engrais"]].map(([k,l])=>`<div class="kpi"><b>${cnt(k)}</b><span>${l}</span></div>`).join('');
@@ -391,11 +411,130 @@ function render(){
  const ce=Object.entries(cd).sort((a,b)=>b[1]-a[1]),cm=Math.max(1,...ce.map(x=>x[1]));
  $('#finCats').innerHTML=ce.length?`<div class="rows">${ce.map(([k,v])=>`<div class="rw wide"><span>${esc(CATF[k]||k)}</span><div class="track"><i class="a" style="left:0;width:${v/cm*100}%"></i></div><span class="n">${nf(v)}</span></div>`).join('')}</div><p class="note">Montants en FCFA.</p>`:'<p class="empty">Aucune dépense cette année.</p>';
  const fl=fy.ops.filter(o=>!sens||o.sens===sens).sort((a,b)=>a.date<b.date?1:-1);
- $('#tFin').innerHTML=fl.length?tbl(['Date','Libellé','Poste','Montant'],fl.map(o=>[fd(o.date),esc(o.libelle)+(o.auto?' <span class="tag">depuis Santé</span>':''),esc(CATF[o.categorie]||''),`<span class="${o.sens==='vente'?'pos':'neg'}">${o.sens==='vente'?'+':'−'} ${fcfa(o.montant)}</span>`]),[3],{act:fl.map(o=>acts(o.id))}):'<p class="empty">Aucune opération pour cette période.</p>';
+ $('#tFin').innerHTML=fl.length?tbl(['Date','Libellé','Poste','Règlement','Montant'],fl.map(o=>[fd(o.date),esc(o.libelle)+(o.auto?' <span class="tag">depuis Santé</span>':''),esc(CATF[o.categorie]||''),MODES[o.mode||'especes'],`<span class="${o.sens==='vente'?'pos':'neg'}">${o.sens==='vente'?'+':'−'} ${fcfa(o.montant)}</span>`]),[4],{act:fl.map(o=>acts(o.id))}):'<p class="empty">Aucune opération pour cette période.</p>';
 }
 
+/* ---------- rapports comptables ---------- */
+const PLAN0={aliment:'602',veto:'604',main:'661',achat:'601',equip:'605',eau:'605',transport:'618',autre:'638',vente_porc:'702',vente_porcelet:'702',especes:'571',mm:'552',banque:'521'};
+const LIBC={'601':'Achats de marchandises','602':'Achats de matières premières et fournitures liées','604':'Achats stockés de matières et fournitures consommables','605':'Autres achats','618':'Autres frais de transport','638':'Autres charges externes','661':'Rémunérations directes versées au personnel national','702':'Ventes de produits finis','701':'Ventes de marchandises','571':'Caisse','521':'Banques locales','552':'Monnaie électronique (téléphone portable)'};
+const JNL={especes:'CA',mm:'MM',banque:'BQ'};
+const MOISL=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const planCfg=()=>({...PLAN0,...((byId('config_plan')||{}).comptes||{})});
+const libCpt=(c,p)=>{const lb=(byId('config_plan')||{}).libelles||{};if(lb[c])return lb[c];if(LIBC[c])return LIBC[c];const k=Object.keys(p).find(k=>p[k]===c);return k?(CATF[k]||MODES[k]||k):''};
+function period(){
+ const v=$('#rPer').value,t=today(),y=+t.slice(0,4),m=+t.slice(5,7),pad=n=>String(n).padStart(2,'0'),last=(Y,M)=>new Date(Date.UTC(Y,M,0)).getUTCDate();
+ const mon=(Y,M)=>({f:`${Y}-${pad(M)}-01`,to:`${Y}-${pad(M)}-${last(Y,M)}`,l:MOISL[M-1]+' '+Y});
+ if(v==='m0')return mon(y,m);
+ if(v==='m1')return m===1?mon(y-1,12):mon(y,m-1);
+ if(v==='q0'){const M=Math.floor((m-1)/3)*3+1;return {f:`${y}-${pad(M)}-01`,to:`${y}-${pad(M+2)}-${last(y,M+2)}`,l:`${M===1?'1er':(M+2)/3+'e'} trimestre ${y}`}}
+ if(v==='y1')return {f:`${y-1}-01-01`,to:`${y-1}-12-31`,l:'exercice '+(y-1)};
+ if(v==='c'){const f=$('#rFrom').value||`${y}-01-01`,to=$('#rTo').value||t;return {f,to,l:'du '+fd(f)+' au '+fd(to)}}
+ return {f:`${y}-01-01`,to:`${y}-12-31`,l:'exercice '+y};
+}
+function journal(ops,p){
+ const L=[];let n=0;
+ for(const o of ops){n++;const pc='P'+String(n).padStart(4,'0'),tr=p[o.mode||'especes'],cp=p[o.categorie]||(o.sens==='vente'?'702':'638'),lib=o.libelle||CATF[o.categorie]||'',j=JNL[o.mode||'especes'];
+  if(o.sens==='vente'){L.push({d:o.date,j,pc,c:tr,lib,D:o.montant,C:0});L.push({d:o.date,j,pc,c:cp,lib,D:0,C:o.montant})}
+  else{L.push({d:o.date,j,pc,c:cp,lib,D:o.montant,C:0});L.push({d:o.date,j,pc,c:tr,lib,D:0,C:o.montant})}}
+ return L;
+}
+function buildReport(){
+ const type=$('#rType').value,P=period(),p=planCfg();
+ const ops=finOps().filter(o=>o.date&&o.date>=P.f&&o.date<=P.to&&o.montant>0).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);
+ const R={type,P,secs:[],res:null,notes:[]};
+ const sum=(a,k)=>a.reduce((x,o)=>x+(o[k]||0),0);
+ if(type==='cr'){
+  R.title='Compte de résultat';
+  const grp=sens=>{const g={};for(const o of ops.filter(o=>o.sens===sens)){const c=p[o.categorie]||(sens==='vente'?'702':'638');g[c]=(g[c]||0)+o.montant}return Object.entries(g).sort((a,b)=>a[0].localeCompare(b[0]))};
+  const pr=grp('vente'),ch=grp('depense'),tp=pr.reduce((x,e)=>x+e[1],0),tc=ch.reduce((x,e)=>x+e[1],0);
+  R.secs.push({h:'Produits',cols:['Compte','Intitulé','Montant (FCFA)'],num:[2],rows:pr.map(([c,v])=>[c,libCpt(c,p),v]),foot:['','Total des produits',tp]});
+  R.secs.push({h:'Charges',cols:['Compte','Intitulé','Montant (FCFA)'],num:[2],rows:ch.map(([c,v])=>[c,libCpt(c,p),v]),foot:['','Total des charges',tc]});
+  R.res=[tp-tc>=0?'Résultat net : bénéfice':'Résultat net : perte',tp-tc];
+  R.notes.push('Comptabilité de trésorerie : opérations enregistrées à la date de paiement, sans variation de stocks ni amortissements.');
+ }
+ if(type==='journal'){
+  R.title='Journal comptable';const L=journal(ops,p);
+  R.secs.push({cols:['Date','Jnl','Pièce','Compte','Libellé','Débit','Crédit'],num:[5,6],rows:L.map(l=>[fd(l.d),l.j,l.pc,l.c,l.lib,l.D||'',l.C||'']),foot:['','','','','Totaux',sum(L,'D'),sum(L,'C')],csv:L.map(l=>[l.d,l.j,l.pc,l.c,l.lib,l.D||'',l.C||''])});
+  R.notes.push('Journaux : CA = caisse, MM = Mobile Money, BQ = banque. Le fichier Excel garde les dates au format AAAA-MM-JJ pour faciliter un import.');
+ }
+ if(type==='balance'){
+  R.title='Balance des comptes';const L=journal(ops,p),b={};
+  for(const l of L){(b[l.c]||=({D:0,C:0}));b[l.c].D+=l.D;b[l.c].C+=l.C}
+  const rows=Object.entries(b).sort((a,c)=>a[0].localeCompare(c[0])).map(([c,v])=>[c,libCpt(c,p),v.D,v.C,v.D>v.C?v.D-v.C:'',v.C>v.D?v.C-v.D:'']);
+  const t=i=>rows.reduce((x,r)=>x+(+r[i]||0),0);
+  R.secs.push({cols:['Compte','Intitulé','Mouvements débit','Mouvements crédit','Solde débiteur','Solde créditeur'],num:[2,3,4,5],rows,foot:['','Totaux',t(2),t(3),t(4),t(5)]});
+  R.notes.push('Mouvements de la période uniquement, sans soldes d\'ouverture.');
+ }
+ if(type==='treso'){
+  R.title='Trésorerie';
+  const rows=Object.keys(MODES).map(k=>{const o=ops.filter(x=>(x.mode||'especes')===k),e=sum(o.filter(x=>x.sens==='vente'),'montant'),d=sum(o.filter(x=>x.sens!=='vente'),'montant');return [MODES[k]+' ('+p[k]+')',e,d,e-d]});
+  const t=i=>rows.reduce((x,r)=>x+r[i],0);
+  R.secs.push({h:'Par mode de règlement',cols:['Compte','Encaissements','Décaissements','Variation'],num:[1,2,3],rows,foot:['Total',t(1),t(2),t(3)]});
+  const mm={};for(const o of ops){const k=o.date.slice(0,7);(mm[k]||=({e:0,d:0}));if(o.sens==='vente')mm[k].e+=o.montant;else mm[k].d+=o.montant}
+  let cum=0;const mrows=Object.keys(mm).sort().map(k=>{cum+=mm[k].e-mm[k].d;return [MOISL[+k.slice(5)-1]+' '+k.slice(0,4),mm[k].e,mm[k].d,mm[k].e-mm[k].d,cum]});
+  R.secs.push({h:'Par mois',cols:['Mois','Encaissements','Décaissements','Variation','Cumul'],num:[1,2,3,4],rows:mrows});
+  R.notes.push('Variation de trésorerie sur la période, sans solde de départ.');
+ }
+ if(type==='ind'){
+  R.title='Indicateurs d\'élevage';
+  const ve=ops.filter(o=>o.sens==='vente'),dep=ops.filter(o=>o.sens!=='vente');
+  const vp=ve.filter(o=>o.categorie==='vente_porc'),nb=vp.reduce((x,o)=>x+(o.qte||(o.porc?1:0)),0),cav=sum(vp,'montant');
+  const ca=sum(ve,'montant'),tc=sum(dep,'montant'),al=sum(dep.filter(o=>o.categorie==='aliment'),'montant'),vet=sum(dep.filter(o=>o.categorie==='veto'),'montant');
+  const sa=of('saillie'),mb=sa.filter(s=>s.dateMB&&s.dateMB>=P.f&&s.dateMB<=P.to),sv=sa.filter(s=>s.dateSev&&s.dateSev>=P.f&&s.dateSev<=P.to);
+  const pct=(a,b)=>b?Math.round(a/b*100)+' %':'—',moy=(a,b)=>b?Math.round(a/b):'—';
+  R.secs.push({h:'Finances',cols:['Indicateur','Valeur'],num:[1],rows:[['Chiffre d\'affaires (FCFA)',ca],['Total des charges (FCFA)',tc],['Résultat (FCFA)',ca-tc],['Porcs vendus (têtes)',nb],['Prix moyen de vente d\'un porc (FCFA)',moy(cav,nb)],['Coût de revient moyen par porc vendu (FCFA)',moy(tc,nb)],['Part de l\'aliment dans les charges',pct(al,tc)],['Part des soins vétérinaires dans les charges',pct(vet,tc)]]});
+  const nv=sum(mb,'vivants'),nm=sum(mb,'mortsnes'),ns=sum(sv,'sevres'),nvs=sum(sv,'vivants');
+  R.secs.push({h:'Reproduction',cols:['Indicateur','Valeur'],num:[1],rows:[['Saillies enregistrées',sa.filter(s=>s.date>=P.f&&s.date<=P.to).length],['Mises bas',mb.length],['Porcelets nés vivants',nv],['Nés vivants par portée',mb.length?(nv/mb.length).toLocaleString('fr-FR',{maximumFractionDigits:1}):'—'],['Taux de mort-nés',pct(nm,nv+nm)],['Porcelets sevrés',ns],['Pertes avant sevrage',nvs?pct(nvs-ns,nvs):'—']]});
+  R.secs.push({h:'Effectif actuel',cols:['Catégorie','Têtes'],num:[1],rows:Object.entries(CATS).map(([k,v])=>[v,of('porc').filter(x=>x.statut==='actif'&&x.cat===k).length])});
+  R.notes.push('Coût de revient moyen = total des charges de la période ÷ porcs vendus sur la période.');
+ }
+ return R;
+}
+function renderReport(){
+ if(!$('#rOut'))return;
+ const R=buildReport(),fmt=(v,i,num)=>num.includes(i)&&typeof v==='number'?nf(v):esc(v);
+ let h=`<h2>${R.title}</h2><p class="rsub">Ma porcherie · ${esc(R.P.l)} (du ${fd(R.P.f)} au ${fd(R.P.to)}) · montants en FCFA</p>`;
+ const empty=R.secs.every(s=>!s.rows.length);
+ if(empty&&R.type!=='ind'){$('#rOut').innerHTML=h+'<p class="empty">Aucune opération sur cette période. Enregistrez vos dépenses et ventes dans Finances.</p>';return}
+ for(const s of R.secs){
+  if(s.h)h+=`<h3>${s.h}</h3>`;
+  h+=`<div class="scroll"><table class="stack"><thead><tr>${s.cols.map((c,i)=>`<th class="${s.num.includes(i)?'n':''}">${c}</th>`).join('')}</tr></thead><tbody>${s.rows.length?s.rows.map(r=>`<tr>${r.map((v,i)=>`<td class="${s.num.includes(i)?'n':''}">${fmt(v,i,s.num)}</td>`).join('')}</tr>`).join(''):`<tr><td colspan="${s.cols.length}" style="color:var(--mut)">Aucun montant</td></tr>`}</tbody>${s.foot?`<tfoot><tr>${s.foot.map((v,i)=>`<td class="${s.num.includes(i)?'n':''}">${fmt(v,i,s.num)}</td>`).join('')}</tr></tfoot>`:''}</table></div>`;
+ }
+ if(R.res)h+=`<div class="res"><span>${R.res[0]}</span><span class="nw">${nf(R.res[1])} FCFA</span></div>`;
+ h+=R.notes.map(n=>`<p class="rnote">${esc(n)}</p>`).join('')+`<p class="rnote">Établi le ${fd(today())}.</p>`;
+ $('#rOut').innerHTML=h;
+}
+function reportCsv(){
+ const R=buildReport(),q=v=>{v=v===undefined||v===null?'':String(v);return /[;"\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+ const lines=[[R.title],['Ma porcherie',R.P.l,'du '+fd(R.P.f)+' au '+fd(R.P.to)],[]];
+ for(const s of R.secs){if(s.h)lines.push([s.h]);lines.push(s.cols);for(const r of (s.csv||s.rows))lines.push(r);if(s.foot)lines.push(s.foot);lines.push([])}
+ if(R.res)lines.push([R.res[0],R.res[1]]);
+ return {name:`porcherie-${R.type}-${R.P.f}_${R.P.to}.csv`,text:lines.map(l=>l.map(q).join(';')).join('\r\n')};
+}
+async function download(name,text){
+ const blob=new Blob(['﻿'+text],{type:'text/csv;charset=utf-8'});
+ try{const file=new File([blob],name,{type:'text/csv'});if(/iPhone|iPad|Android/i.test(navigator.userAgent)&&navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:name});return}}catch(e){if(e&&e.name==='AbortError')return}
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);toast('Fichier enregistré dans vos téléchargements.');
+}
+function openPlan(){
+ const p=planCfg(),keys=[...Object.keys(CATF),...Object.keys(MODES)];
+ openM('Plan comptable',`<p class="hint" style="margin:0 0 12px">Numéro de compte SYSCOHADA utilisé pour chaque poste et chaque mode de règlement. Modifiez-les selon votre pratique.</p>
+ <h3 class="sub">Postes</h3>${Object.keys(CATF).map(k=>`<label class="plan-row"><span>${esc(CATF[k])}</span><input id="pl_${k}" inputmode="numeric" value="${esc(p[k])}"></label>`).join('')}
+ <h3 class="sub">Trésorerie</h3>${Object.keys(MODES).map(k=>`<label class="plan-row"><span>${esc(MODES[k])}</span><input id="pl_${k}" inputmode="numeric" value="${esc(p[k])}"></label>`).join('')}
+ <div class="foot"><button class="ghost" id="plReset">Valeurs par défaut</button><span style="flex:1"></span><button class="pri" id="plSave">Enregistrer</button></div>`);
+ $('#plReset').onclick=()=>{for(const k of keys)$('#pl_'+k).value=PLAN0[k]};
+ $('#plSave').onclick=()=>{const c={};for(const k of keys){const v=$('#pl_'+k).value.trim();if(!/^\d{2,10}$/.test(v)){toast('Numéro de compte invalide : '+(CATF[k]||MODES[k]));return}c[k]=v}
+  const cur=byId('config_plan')||{id:'config_plan',kind:'config'};closeM();save({...cur,comptes:c});toast('Plan comptable enregistré.')};
+}
+$('#rType').addEventListener('input',renderReport);
+$('#rPer').addEventListener('input',()=>{$('#rCustom').hidden=$('#rPer').value!=='c';if($('#rPer').value==='c'&&!$('#rFrom').value){$('#rFrom').value=today().slice(0,4)+'-01-01';$('#rTo').value=today()}renderReport()});
+$('#rFrom').addEventListener('input',renderReport);$('#rTo').addEventListener('input',renderReport);
+$('#rCsv').onclick=()=>{const c=reportCsv();download(c.name,c.text)};
+$('#rPrint').onclick=()=>{try{window.print()}catch(e){toast('Impression indisponible : utilisez « Exporter pour Excel ».')}};
+$('#rPlan').onclick=openPlan;
+
 /* ---------- navigation & events ---------- */
-const TABS=['tableau','cheptel','repro','sante','pesees','finances'];
+const TABS=['tableau','cheptel','repro','sante','pesees','finances','rapports'];
 function go(t){if(!TABS.includes(t))t='tableau';tab=t;for(const b of document.querySelectorAll('#tabs button'))b.setAttribute('aria-current',b.dataset.t===t);for(const v of document.querySelectorAll('.view'))v.classList.toggle('on',v.id==='v-'+t)}
 $('#tabs').onclick=e=>{const b=e.target.closest('button');if(b){location.hash=b.dataset.t;go(b.dataset.t);scrollTo(0,0)}};
 addEventListener('hashchange',()=>go(location.hash.slice(1)));
