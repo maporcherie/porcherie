@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Ma porcherie</title>
+<title>Ferme NDRI</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="icon-192.png">
@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Porcherie">
+<meta name="apple-mobile-web-app-title" content="Ferme NDRI">
 <script src="config.js"></script>
 <script src="fb.js"></script>
 <style>
@@ -138,7 +138,7 @@ dl.info dt{color:var(--mut);font-size:14px}dl.info dd{margin:0}
 <header class="top">
  <div class="brand">
   <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 18 8 6l16 7z" fill="#f28da3"/><path d="M50 18l6-12-16 7z" fill="#f28da3"/><circle cx="32" cy="34" r="24" fill="#ff9fb4"/><circle cx="32" cy="34" r="24" fill="none" stroke="#1d1418" stroke-width="2.5"/><ellipse cx="32" cy="41" rx="11" ry="8" fill="#f27a95" stroke="#1d1418" stroke-width="2.5"/><circle cx="28" cy="41" r="2" fill="#1d1418"/><circle cx="36" cy="41" r="2" fill="#1d1418"/><circle cx="23" cy="28" r="2.6" fill="#1d1418"/><circle cx="41" cy="28" r="2.6" fill="#1d1418"/></svg>
-  <div><h1>Ma porcherie</h1><p id="sync">Chargement…</p></div>
+  <div><h1>Ferme NDRI</h1><p id="sync">Chargement…</p></div>
  </div>
  <button class="ghost sm" id="bkBtn">Sauvegarde</button>
 </header>
@@ -214,7 +214,7 @@ dl.info dt{color:var(--mut);font-size:14px}dl.info dd{margin:0}
 </div></div>
 <div class="login" id="login" hidden><form class="sheet" id="lgForm" novalidate>
  <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 18 8 6l16 7z" fill="#f28da3"/><path d="M50 18l6-12-16 7z" fill="#f28da3"/><circle cx="32" cy="34" r="24" fill="#ff9fb4"/><circle cx="32" cy="34" r="24" fill="none" stroke="#1d1418" stroke-width="2.5"/><ellipse cx="32" cy="41" rx="11" ry="8" fill="#f27a95" stroke="#1d1418" stroke-width="2.5"/><circle cx="28" cy="41" r="2" fill="#1d1418"/><circle cx="36" cy="41" r="2" fill="#1d1418"/><circle cx="23" cy="28" r="2.6" fill="#1d1418"/><circle cx="41" cy="28" r="2.6" fill="#1d1418"/></svg>
- <h3>Ma porcherie</h3>
+ <h3>Ferme NDRI</h3>
  <p id="lgIntro">Connectez-vous avec l'e-mail et le mot de passe créés dans Firebase.</p>
  <label class="fld"><span>E-mail</span><input id="lgMail" type="email" autocomplete="username" inputmode="email"></label>
  <label class="fld"><span>Mot de passe</span><input id="lgPass" type="password" autocomplete="current-password"></label>
@@ -493,7 +493,7 @@ function buildReport(){
 function renderReport(){
  if(!$('#rOut'))return;
  const R=buildReport(),fmt=(v,i,num)=>num.includes(i)&&typeof v==='number'?nf(v):esc(v);
- let h=`<h2>${R.title}</h2><p class="rsub">Ma porcherie · ${esc(R.P.l)} (du ${fd(R.P.f)} au ${fd(R.P.to)}) · montants en FCFA</p>`;
+ let h=`<h2>${R.title}</h2><p class="rsub">Ferme NDRI · ${esc(R.P.l)} (du ${fd(R.P.f)} au ${fd(R.P.to)}) · montants en FCFA</p>`;
  const empty=R.secs.every(s=>!s.rows.length);
  if(empty&&R.type!=='ind'){$('#rOut').innerHTML=h+'<p class="empty">Aucune opération sur cette période. Enregistrez vos dépenses et ventes dans Finances.</p>';return}
  for(const s of R.secs){
@@ -506,10 +506,10 @@ function renderReport(){
 }
 function reportCsv(){
  const R=buildReport(),q=v=>{v=v===undefined||v===null?'':String(v);return /[;"\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
- const lines=[[R.title],['Ma porcherie',R.P.l,'du '+fd(R.P.f)+' au '+fd(R.P.to)],[]];
+ const lines=[[R.title],['Ferme NDRI',R.P.l,'du '+fd(R.P.f)+' au '+fd(R.P.to)],[]];
  for(const s of R.secs){if(s.h)lines.push([s.h]);lines.push(s.cols);for(const r of (s.csv||s.rows))lines.push(r);if(s.foot)lines.push(s.foot);lines.push([])}
  if(R.res)lines.push([R.res[0],R.res[1]]);
- return {name:`porcherie-${R.type}-${R.P.f}_${R.P.to}.csv`,text:lines.map(l=>l.map(q).join(';')).join('\r\n')};
+ return {name:`ferme-ndri-${R.type}-${R.P.f}_${R.P.to}.csv`,text:lines.map(l=>l.map(q).join(';')).join('\r\n')};
 }
 async function download(name,text){
  const blob=new Blob(['﻿'+text],{type:'text/csv;charset=utf-8'});
@@ -561,7 +561,7 @@ $('#bkBtn').onclick=()=>{
  <p class="note">${S.length} enregistrements · synchronisés avec le compte ${esc(who)}.</p><div class="foot"><button class="ghost" id="bkOut2">Se déconnecter</button></div>`);
  const AB=window.Android;
  $('#bkCopy').onclick=async()=>{if(AB){AB.copy(data);return}try{await navigator.clipboard.writeText(data);toast('Sauvegarde copiée.')}catch(e){$('#bkOut').select();toast('Sélectionnez le texte et copiez-le.')}};
- $('#bkShare').onclick=async()=>{const t='Sauvegarde Ma porcherie '+fd(today());if(AB){AB.share(t,data);return}if(navigator.share){try{await navigator.share({title:t,text:data})}catch(e){}return}try{await navigator.clipboard.writeText(data);toast('Sauvegarde copiée : collez-la dans un mail.')}catch(e){toast('Partage indisponible ici.')}};
+ $('#bkShare').onclick=async()=>{const t='Sauvegarde Ferme NDRI '+fd(today());if(AB){AB.share(t,data);return}if(navigator.share){try{await navigator.share({title:t,text:data})}catch(e){}return}try{await navigator.clipboard.writeText(data);toast('Sauvegarde copiée : collez-la dans un mail.')}catch(e){toast('Partage indisponible ici.')}};
  $('#bkOut2').onclick=()=>{if(window.FB)FB.signOut();closeM()};
  $('#bkImp').onclick=async()=>{let arr;try{arr=JSON.parse($('#bkIn').value)}catch(e){toast('Texte de sauvegarde illisible.');return}
   if(!Array.isArray(arr)){toast('Texte de sauvegarde illisible.');return}
